@@ -20,6 +20,8 @@ if(req.method === 'OPTIONS'){
 next();
 });
 
+//var indexRouter = require('./routes/index');
+var usersRouter =  require('./routes/users');
 
 app.use(logger('dev'));
 app.use('/files', express.static('files'))
@@ -36,6 +38,10 @@ app.get('/', function(req, res){
     res.json({message:"hello world"});
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+//app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 
 app.use((req, res, next)=>{
