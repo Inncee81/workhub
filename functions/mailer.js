@@ -3,8 +3,8 @@ var transporter = nodemailer.createTransport({
         
     service: 'gmail',
     auth: {
-        user: 'comicgallery2018@gmail.com',
-        pass: 'GROUP14SCRUM'           }
+        user: 'workhub18@gmail.com',
+        pass: 'Workhub2018'           }
    });
 
    exports.UserAdded = function(email,code,callback){
@@ -19,6 +19,7 @@ var transporter = nodemailer.createTransport({
             </center>`
         };
         transporter.sendMail(mailOptions, callback); 
+        console.log('kk')
    }
 
 //    const mailOptions = {
