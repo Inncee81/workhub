@@ -25,7 +25,9 @@ exports.CreateUser = (req,res)=>{
                         status:req.body.status,
                         verify:false,
                         statusCode:randx,
-                        password:hash
+                        password:hash,
+                        profilePicture:''
+                        
                         
                     }
                     var subject = 'Hello ' + details.firstname + ',';
@@ -34,12 +36,13 @@ exports.CreateUser = (req,res)=>{
 
                     model.create(details, (err,details)=>{
                         if(details){
-                            mailer.UserAdded(details.email,details.statusCode, subject, mailBody, function (err, info) {
+                            mailer.UserAdded(details.email,details.statusCode, function (err, info) {
                                 if(info){
                                     res.json({message:'Email Registeration Successfully !!'});
 
                                 }else{
-                                    res.json({err:err,message:'Error Sending Email to user' })
+                                    //res.json({err:err,message:'Error Sending Email to user' })
+                                    console.log(err)
                                 }
                             })
                             res.json({message:'User Registeration Successfully !!'});
@@ -128,7 +131,8 @@ exports.userlogin = (req, res)=>{
             }
         })
     }catch(exception){
-        consolelog('error:'+ exception);
+        console.log('error:'+ exception);
     }
    
 }
+

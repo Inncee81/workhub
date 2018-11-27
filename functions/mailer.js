@@ -22,10 +22,3 @@ var transporter = nodemailer.createTransport({
         console.log('kk')
    }
 
-//    const mailOptions = {
-//     from: 'comicgallery2018@gmail.com', // sender address
-//     to: req.body.email, // list of receivers
-//     subject: 'Chota  Subscription Alert', // Subject line
-//     html: '<p>Your Subscription to chota was Successful and the Account varification  code is </p>'+details.statusCode,// plain text body
-    
-//   };
