@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -22,6 +23,10 @@ next();
 
 //var indexRouter = require('./routes/index');
 var usersRouter =  require('./routes/users');
+var ProfilepictureRouter = require('./routes/profilePictures');
+var cvRouter = require('./routes/cvs');
+var jobRouter = require('./routes/jobs');
+var adminRouter = require('./routes/admins');
 
 app.use(logger('dev'));
 app.use('/files', express.static('files'))
@@ -30,8 +35,7 @@ app.use(bodyParser.json());
 
 Mongoose.Promise = global.Promise;
   
-//Mongoose.connect('mongodb://Admin:ndife123@ds215502.mlab.com:15502/ogenetv' ,{ useNewUrlParser: true });
-// Mongoose.connect('mongodb://buka4chocksy:peterchukwu1992@ds147080.mlab.com:47080/chota',{ useNewUrlParser: true });
+//Mongoose.connect('mongodb://buka4chocksy:peterchukwu1992@ds019836.mlab.com:19836/workhub',{useNewUrlParser:true});
  Mongoose.connect('mongodb://localhost:27017/workhub', { useNewUrlParser: true });
 
 app.get('/', function(req, res){
@@ -42,6 +46,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/profilePictures', ProfilepictureRouter);
+app.use('/cvs',cvRouter);
+app.use('/jobs',jobRouter);
+app.use('/admins',adminRouter);
 
 
 app.use((req, res, next)=>{
