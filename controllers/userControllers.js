@@ -1,4 +1,7 @@
 var model = require('../models/user');
+var cv = require('../models/cv');
+var job = require('../models/job');
+var subscribers = require('../models/subscribe');
 var bcrypt = require('bcrypt');
 var mailer = require('../functions/mailer');
 
@@ -134,6 +137,75 @@ exports.userlogin = (req, res)=>{
         console.log('error:'+ exception);
     }
    
+}
+
+exports.userApplyJob = (req,res)=>{
+    try{
+        var userID = req.params.id
+        var jobIDx = req.body.id
+        model.findById({_id:userID}, function(err, ID){
+            if(err){
+                res.json({err:err, message:'Error getting user!!!'});
+            }else if(ID){
+                var user = ID._id;
+           
+                cv.find({userID:user},function(err, userCV){
+                    if(err){
+                        res.json({err:err, message:'Error fetching user cv!!!'});
+
+                    }else if(userCV.length >=1){
+                        var useryrExp = userCV[0].yearOfExperience
+                        var cvCourse = userCV[0].academicQualification
+                        job.find({_id:jobIDx},function(err, found){
+                            if(err){
+                                res.json({err:err, message:'Error getting job!!!'});  
+                            }else if(found.length >=1){
+                                 var jobyrExp = found[0].yearOfExperience
+                                 var jobCourse = found[0].academicQualification  
+                                if(jobyrExp == useryrExp){
+                                    if(cvCourse == jobCourse){
+                                        var userJobApplication = {
+                                            userID:userID,
+                                            JObID:jobIDx
+                                        }
+                                        subscribers.find({$and:[{userID:userID},{JObID:jobIDx}]},function(err,result){
+                                            if(result.length >=1){
+                                              res.json({message:'Sorry you already applied for this particular job !!!'})
+                                            }else{
+                                                subscribers.create(userJobApplication,function(err, added){
+                                                    if(added){
+                                                        res.json({message:'your application was successfull'});
+                                                    }else{
+                                                        res.json({err:err, message:'error occured while applying for this job !!'})
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }else{
+                                        res.json({message:'Sorry your qualifications do not match this job specifications!!'});
+                                    }
+                                    }else{
+                                        res.json({message:'Sorry your qualifications do not match this job specifications!!'});
+
+                                    }
+                                
+                            }else{
+                                res.json({message:'Sorry Job not available!!'});
+                            }
+                        })
+                    }else{
+                        res.json({ message:'Cv not available!!!'});
+
+                    }
+                })
+            }else{
+                res.json({ message:'User not available!!!'});
+            }
+        })
+    }catch(exception){
+        console.log('error:'+ exception);
+  
+    }
 }
 
 
