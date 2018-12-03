@@ -1,5 +1,4 @@
 var model = require('../models/admin');
-const modelx = require("../models/job");
 var bcrypt = require('bcrypt');
 exports.CreateAdmin = (req, res)=>{
     try{
@@ -63,18 +62,5 @@ exports.login = (req, res)=>{
     }
 }
 
-exports.deleteJob = (req, res)=>{
-    try{
-       var data = req.params.id
-        modelx.findByIdAndDelete({_id:data}, function(err, data){
-          if(data){
-            res.json({message:'Job was deleted successfully !!'})
-          }else{
-            res.json({err:err, message:'unable to deleted job'})
-          }
-        })
-    }catch(exception){
-      console.log("error:" + exception);
-    }
-  }
+
   
