@@ -17,7 +17,8 @@ var user = require('../models/user')
                     schoolingPeriod:req.body.schoolingPeriod,
                     academicQualification:req.body.academicQualification,
                     yearOfExperience:req.body.yearOfExperience,
-                    careerObjective:req.body.careerObjective
+                    careerObjective:req.body.careerObjective,
+                    userID:emails[0]._id
 
                 }
                 model.find({ $and:[{surname: details.surname}, {email: details.email}] },function(err, result){
@@ -67,3 +68,32 @@ exports.searchCv = (req,res)=>{
 }
 }
 
+exports.updateCv = (req,res)=>{
+    try{
+        var id = req.params.id
+        var options = req.body
+        model.findByIdAndUpdate({_id:id}, options, function(err, ans){
+            if(err){
+                res.json({err:err, message:'cv could not be updated !!'})
+            }else{
+                res.json({message:'cv updated successfully !!'});
+            }
+        })
+    }catch(exception){
+   console.log('error:'+ exception);
+    }
+}
+exports.deleteCV = (req,res)=>{
+    try{
+        var id = req.params.id
+        model.findByIdAndDelete({_id:id}, function(err, deleted){
+            if(deleted){
+                res.json({message:'cv was deleted successfully !!!'})
+            }else{
+                res.json({err:err, message:'Error encountered while deleting cv !!'})
+            }
+        })
+    }catch(exception){
+        console.log('error:'+ exception); 
+    }
+}
