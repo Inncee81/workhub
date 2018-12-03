@@ -79,5 +79,18 @@ exports.createJob = (req, res) => {
   );
 };
 
-
+exports.deleteJob = (req, res)=>{
+  try{
+     var data = req.params.id
+      model.findByIdAndDelete({_id:data}, function(err, data){
+        if(data){
+          res.json({message:'Job was deleted successfully !!'})
+        }else{
+          res.json({err:err, message:'unable to deleted job'})
+        }
+      })
+  }catch(exception){
+    console.log("error:" + exception);
+  }
+}
 
