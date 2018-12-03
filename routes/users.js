@@ -5,6 +5,7 @@ var userController = require('../controllers/userControllers');
 router.post('/create',userController.CreateUser);
 router.post('/verify',userController.verifyUser);
 router.post('/login', userController.userlogin);
+router.get('/apply/:id',userController.userApplyJob);
 
 
 module.exports = router;
