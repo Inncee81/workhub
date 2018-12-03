@@ -10,7 +10,8 @@ var cvSchema = mongoose.Schema({
     schoolingPeriod:String,
     academicQualification:String,
     yearOfExperience:String,
-    careerObjective:String
+    careerObjective:String,
+    userID:String
 })
 
 module.exports = mongoose.model('cv',cvSchema);
