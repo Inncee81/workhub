@@ -148,6 +148,12 @@ exports.userApplyJob = (req,res)=>{
                 res.json({err:err, message:'Error getting user!!!'});
             }else if(ID){
                 var user = ID._id;
+                var userName = ID.firstname
+                var userSurname = ID.lastname
+                var userEmail = ID.email
+                // console.log(userName);
+                // console.log(userSurname);
+                // console.log(userEmail);
            
                 cv.find({userID:user},function(err, userCV){
                     if(err){
@@ -162,11 +168,23 @@ exports.userApplyJob = (req,res)=>{
                             }else if(found.length >=1){
                                  var jobyrExp = found[0].yearOfExperience
                                  var jobCourse = found[0].academicQualification  
+                                 var jobTitle = found[0].jobTitle
+                                 var companyName = found[0].companyName 
                                 if(jobyrExp == useryrExp){
                                     if(cvCourse == jobCourse){
                                         var userJobApplication = {
                                             userID:userID,
-                                            JObID:jobIDx
+                                            JObID:jobIDx,
+                                            jobTitle:jobTitle,
+                                            JObCourse:jobCourse,
+                                            companyName:companyName,
+                                            jobyrExp:jobyrExp,
+                                            Surname:userName,
+                                            othernames:userSurname,
+                                            useremail:userEmail,
+                                            usercourse:cvCourse,
+                                            userExp:useryrExp
+
                                         }
                                         subscribers.find({$and:[{userID:userID},{JObID:jobIDx}]},function(err,result){
                                             if(result.length >=1){
