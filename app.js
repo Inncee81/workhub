@@ -36,8 +36,8 @@ app.use(bodyParser.json());
 
 Mongoose.Promise = global.Promise;
   
-//Mongoose.connect('mongodb://buka4chocksy:peterchukwu1992@ds019836.mlab.com:19836/workhub',{useNewUrlParser:true});
- Mongoose.connect('mongodb://localhost:27017/workhub', { useNewUrlParser: true });
+Mongoose.connect('mongodb://buka4chocksy:peterchukwu1992@ds019836.mlab.com:19836/workhub',{useNewUrlParser:true});
+//Mongoose.connect('mongodb://localhost:27017/workhub', { useNewUrlParser: true });
 
 app.get('/', function(req, res){
     res.json({message:"hello world"});
