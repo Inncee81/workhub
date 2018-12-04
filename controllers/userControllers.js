@@ -151,10 +151,6 @@ exports.userApplyJob = (req,res)=>{
                 var userName = ID.firstname
                 var userSurname = ID.lastname
                 var userEmail = ID.email
-                // console.log(userName);
-                // console.log(userSurname);
-                // console.log(userEmail);
-           
                 cv.find({userID:user},function(err, userCV){
                     if(err){
                         res.json({err:err, message:'Error fetching user cv!!!'});
@@ -226,4 +222,30 @@ exports.userApplyJob = (req,res)=>{
     }
 }
 
+exports.UserViewJobByQualification = (req,res)=>{
+    try{
+        var userID = req.params.id
+        cv.find({userID:userID},function(err,user){
+            if(err){
+                res.json({err:err, message:'Error occured While Fetching user !!!'})
+            }else if(user){
+                const userCourse = user[0].academicQualification
+                const useryrExp = user[0].yearOfExperience
+                job.find({$and:[{academicQualification:userCourse},{yearOfExperience:useryrExp}]},function(err, output){
+                   if(output){
+                        res.json({output})
+                    } else if(output.length === 0){
+                        res.json({message:'No related Job Available for now !!!'})                   
+                    }else{
+                        res.json({err:err,message:'Error Occured While fetching related job !!!'})
+                    }
+                })
+            }else{
+                res.json({message:'No user found !!!'})
+            }
+        })
+}catch(exception){
+    console.log('error:'+ exception);
+}
+}
 
