@@ -12,7 +12,10 @@ var userSchema = mongoose.Schema({
   status: { type: String, required: true },
   verify: { type: Boolean },
   statusCode: { type: Number },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  profilePicture:String
+  
 });
 
 module.exports = mongoose.model("user", userSchema);
+
