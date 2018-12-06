@@ -94,3 +94,20 @@ exports.deleteJob = (req, res)=>{
   }
 }
 
+exports.SearchJobs = (req,res)=>{
+  try{
+    var course = req.body.course
+    var  location = req.body.location
+    model.find({$and:[{"jobLocation":{$regex: location, $options: 'i'}},{"academicQualification":{$regex: course, $options: 'i'}}]},function(err, output){
+      if(output.length>=1){
+        res.json({output})
+      }else if(output.length == 0){
+        res.json({message:'Related Job searched Not found !!!'})
+      }else{
+        res.json({err:err, message:'Error found while getting job !!!'})
+      }
+    })
+  }catch(exception){
+    console.log("error:" + exception);
+  }
+}

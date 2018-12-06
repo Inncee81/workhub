@@ -1,0 +1,52 @@
+.footer-row{
+    background-color:#F8F9FA;
+    color:black;
+    margin-top: 2em;
+}
+.head-tag{
+    text-align: left;
+    font-size: 15px;
+    padding-top: 9px;
+}
+.footer-writeup{
+    font-size:12px;
+}
+.writing{
+    font-size: 12px;
+}
+ .li{
+     list-style: none;
+     text-align: left;
+ }
+ .social-media-icons ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.social-media-icons a {	
+	display: inline-block;
+	text-decoration: none;
+	padding: 7px;
+}
+
+.social-media-icons a:nth-child(1) i {
+	color: #d34836;
+}
+
+.social-media-icons a:nth-child(2) i {
+	color: #4099FF;
+}
+
+.social-media-icons a:nth-child(3) i {
+	color: #b31217;
+}
+
+.social-media-icons a:nth-child(4) i {
+	color: #FF6600;
+}
+
+.social-media-icons a i:hover{
+	color: black;
+}
+ 
