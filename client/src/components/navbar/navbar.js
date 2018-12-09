@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modals from '../../components/modal/modal';
 import {
     Collapse,
     Navbar,
@@ -38,7 +39,7 @@ class NavBar extends Component{
                 <NavLink href="/components/">Register</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Login</NavLink>
+                <NavLink href="https://github.com/reactstrap/reactstrap"><Modals text='Login'/></NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

@@ -7,6 +7,7 @@ import { Card, CardTitle, CardText } from 'reactstrap';
 import Footer from '../../components/footer/footer';
 
 
+
 class JobDetails extends Component{
     render(){
         return(
