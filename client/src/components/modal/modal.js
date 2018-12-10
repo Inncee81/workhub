@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalFooter } from 'reactstrap';
+import { Button, Modal } from 'reactstrap';
 import {Container , Row, Col} from 'reactstrap';
 import {  Form, FormGroup, Label, Input } from 'reactstrap';
 import './modal.css'
+
 
 class Modals extends Component{
     constructor(props) {
@@ -27,10 +28,11 @@ class Modals extends Component{
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           
         
-          <Container className='login-container'>
-                <Row classname='login-wrapper'>
-                  <Col md='12' className='login-div'>
-                        <Form>
+          <Container className=''>
+                <Row classname=''>
+                  <Col md='12'>
+                  <h4 className='login-text'><strong>User Login</strong></h4>
+                        <Form className='login-form'>
         <FormGroup>
           <Label for="exampleEmail">Email</Label>
           <Input type="email" name="email" id="exampleEmail" placeholder="Insert Email" />
@@ -51,11 +53,6 @@ class Modals extends Component{
                 </Col>    
                 </Row>
             </Container>
-        
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
         </Modal>
       </div>
         )
