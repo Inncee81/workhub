@@ -1,0 +1,45 @@
+.header-banner{
+    text-align: center;
+    color:black;
+}
+.detail-image{
+    background-image: url('../../images/images.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    color: aliceblue;
+    font-size: 32px;
+    text-align: center;
+    height:10em; 
+}
+.text-edit{
+    padding:2em;
+    margin-top: 16em;
+}
+.job-detail-title{
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 10px;
+}
+
+.detail-row{
+    
+    margin-top: 2em;
+    border-radius: 10px;
+ 
+}
+.jobDetail-form{
+    margin-bottom:1;
+    padding-top:1em;
+    padding-bottom:1em;
+}
+
+.btn-success:hover {
+    background-color: white !important;
+    color:black !important;
+}
+.main-cont{
+    margin-bottom: 2em;
+}
+.detail-image-h{
+    padding-top: 3em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

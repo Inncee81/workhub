@@ -28,6 +28,7 @@ var cvRouter = require('./routes/cvs');
 var jobRouter = require('./routes/jobs');
 var adminRouter = require('./routes/admins');
 var subscribeRouter = require('./routes/subscribes');
+var stateRouter = require('./routes/states');
 
 app.use(logger('dev'));
 app.use('/files', express.static('files'))
@@ -52,6 +53,7 @@ app.use('/cvs',cvRouter);
 app.use('/jobs',jobRouter);
 app.use('/admin',adminRouter);
 app.use('/subscribe',subscribeRouter);
+app.use('/state',stateRouter);
 
 
 app.use((req, res, next)=>{
