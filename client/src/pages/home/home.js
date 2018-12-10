@@ -16,7 +16,8 @@ import {
     Card
    } from 'reactstrap';
 import './home.css';
-
+import {Container , Row, Col} from 'reactstrap';
+import NavBar from '../../components/navbar/navbar';
 class Home extends Component{
     constructor(props) {
         super(props);

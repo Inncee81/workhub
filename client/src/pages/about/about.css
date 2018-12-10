@@ -1,0 +1,23 @@
+.head-col{
+    background: black;
+    opacity: 0.8;
+}
+.banner-text{
+    color: aquamarine;
+    text-align: center;
+    padding: 2em;
+}
+.column-tab{
+    border: solid 4px black;
+    box-shadow: 6px 6px 6px grey;
+    border-radius: 12px;
+    background-color: darkseagreen;
+}
+.col-row{
+    margin-top: 1em;
+}
+.text{
+    padding:5px;
+    color: aquamarine;
+    text-align: center;
+}

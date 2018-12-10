@@ -1,8 +1,9 @@
 .login-wrapper{
-    border: 1px solid black;
+   
     margin: auto;
     width: 50%;
-    margin-bottom: 2em;
+    margin-top: 10px;
+    padding: 1em;
 }
 .headNav{
     
@@ -10,13 +11,9 @@
     color: brown;
 }
 .login-div{
-    border: 1px solid black;
-    padding: 1em;  
     border-radius: 10px; 
-    margin-top: 8em;
-    box-shadow: 6px 6px 6px grey;
+    margin-top: 10px;
+    padding: 1em;
    
    
 }
-
-

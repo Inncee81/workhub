@@ -1,0 +1,17 @@
+.profile-divs{
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    box-shadow: 3px 3px 3px  grey;
+}
+.header-text{
+    text-align: center;
+    color:black;
+}
+.body-set{
+    margin-top: 1em;
+}
+.profile-image{
+    border-radius: 70%;
+    border:solid 2px black;
+    margin-bottom:10px;
+}
