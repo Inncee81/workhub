@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modals from '../../components/modal/modal';
+import './navbar.css';
 import {
     Collapse,
     Navbar,
@@ -12,6 +13,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+    import {Link} from 'react-router-dom'
 
 class NavBar extends Component{
   constructor(props) {
@@ -34,12 +36,18 @@ class NavBar extends Component{
           <NavbarBrand href="/"><strong>Workhub.com</strong></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+            <Nav className="ml-auto nav-edit" navbar>
+            <NavItem >
+            <Link to="/" >Home</Link>&nbsp;&nbsp;
+              </NavItem>
+              <NavItem >
+            <Link to="/about" >About</Link>
+              </NavItem>
               <NavItem>
                 <NavLink href="/components/">Register</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap"><Modals text='Login'/></NavLink>
+                <Modals text='Login'/>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

@@ -1,19 +1,16 @@
 .login-wrapper{
-   
-    margin: auto;
+
     width: 50%;
-    margin-top: 10px;
-    padding: 1em;
 }
 .headNav{
     
     text-align: center;
     color: brown;
 }
-.login-div{
-    border-radius: 10px; 
-    margin-top: 10px;
-    padding: 1em;
-   
-   
+.login-text{
+    text-align: center;
+    color: black;  
+}
+.login-form{
+    margin-bottom:1em;
 }

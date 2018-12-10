@@ -36,7 +36,7 @@ exports.createStateCategory = (req,res)=>{
             }else{
                 res.json({message:ouput});
             }
-        })
+        }).sort({state: 1})
       }catch(exception){
         console.log("error:" + exception);   
       }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
 import {
     InputGroup,
     InputGroupAddon,
@@ -18,16 +17,33 @@ import {
 import './home.css';
 import {Container , Row, Col} from 'reactstrap';
 import NavBar from '../../components/navbar/navbar';
+import Footer from '../../components/footer/footer';
+import Axios from 'axios'
 class Home extends Component{
+
     constructor(props) {
         super(props);
+        // state = {jobs:[]}
+        
     
         this.toggleDropDown = this.toggleDropDown.bind(this);
         // this.toggleSplit = this.toggleSplit.bind(this);
         this.state = {
           dropdownOpen: false,
+          jobs: []
         //   splitButtonOpen: false
         };
+      }
+      componentDidMount(){
+          Axios.get('http://localhost:5000/jobs/')
+          .then(res => {
+              console.log(res)
+            this.setState({
+                jobs: res.data.message
+            })
+          })
+          
+          
       }
     
       toggleDropDown() {
@@ -44,9 +60,12 @@ class Home extends Component{
 
       
     render(){
+        let {jobs} = this.state;
+        console.log(this.state.jobs)
         return(
            <Container fluid={true}>
-               <Row id='home-header-wrapper'></Row>
+               <NavBar/>
+              
                <Row id='home-top'>
                <Col id='home-top-part'>
                <Row id='home-top-row'>
@@ -121,96 +140,26 @@ class Home extends Component{
                <Col md='12' id='home-latest-jobs-h3Col'><h3>Latest Jobs</h3></Col>
                </Row>
                <Row id='home-latest-jobs-cards'>
-                    <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
-                 <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
+                   {
+                       jobs &&
+                       jobs.length > 0 ?
+                        (
+                            jobs.map(job => {
+                                return (
+                                    <Col md='3' className='home-latest-jobs' key={job}>
+                                        <Card body>
+                                            <CardTitle>{job.jobTitle}</CardTitle>
+                                            <CardText>{job.state}</CardText>
+                                            <Button color='success'>Apply Now</Button>
+                                        </Card>
+                                    </Col>
+                                )
+                            })
+                        )
+                        :
+                        (<div>loading...</div>)
+                   }
                </Row>
-               <Row id='home-latest-jobs-cards'>
-                    <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
-                 <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
-               </Row>
-               <Row id='home-latest-jobs-cards'>
-                    <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                   </Col>
-                   <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
-                 <Col md='3' className='home-latest-jobs'>
-                        <Card body>
-                            <CardTitle>Space for job title</CardTitle>
-                            <CardText>Space for location</CardText>
-                            <Button color='success'>Apply Now</Button>
-                        </Card>
-                 </Col>
-               </Row>
-               
                    {/* <Row id='home-bottom-div'> */}
                
                    {/* </Row> */}
@@ -280,7 +229,7 @@ class Home extends Component{
                    </Col>
                </Row>
                </Container>
-               <Row id='home-footer-wrapper'></Row>
+               <Footer/>
            </Container>
         )
     }
