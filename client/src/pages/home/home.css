@@ -1,0 +1,93 @@
+
+ul{
+    list-style: none;
+}
+
+
+#home-header-wrapper{
+    border: 1px solid red;
+    height: 4em;
+}
+#home-top-row{
+    /* border: 1px solid blue; */
+    margin-bottom: 2em;
+}
+#home-mid-row{
+    /* border: 1px solid black; */
+}
+#home-top-part{
+    /* background-color: bisque; */
+    /* width: 100%; */
+    padding: 0;
+}
+#home-top{
+    /* background-color: red; */
+    height: 20em;
+    padding: 20px;
+    padding-top: 5em;
+    background-image: url(../../images/home-photo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* opacity: 3px; */
+
+}
+.home-latest-jobs{
+    /* height: 5em; */
+    /* border: 1px solid blue; */
+    /* padding: 0; */
+    /* margin: 10px; */
+}
+#home-top-btn{
+    margin-left: 10px;
+}
+#home-latest-jobs-h3Col{
+    text-align: center;
+    /* border: 1px solid firebrick; */
+    /* height: 5em; */
+    padding: 20px;
+    margin-bottom: 2em;
+}
+#home-footer-wrapper{
+    height: 5em;
+    border: 1px solid gold;
+}
+.home-jobs-cards{
+    height: 2em;
+    /* border: 1px solid red; */
+    /* margin: 2px; */
+}
+#home-subscription-div{
+    height: 16em;
+    /* border: 1px solid hotpink; */
+    background-color: gray;
+    border-radius: 10px;
+}
+#home-bottom-div{
+    border: 1px solid saddlebrown;
+    /* padding-left: 14em; */
+}
+#home-subscribe-btn{
+    margin-left: 16px;
+}
+#home-latest-jobs-cards{
+    margin-bottom: 3em;
+}
+#home-row-sub-div{
+    margin-bottom: 3em;
+}
+#home-row-bottom{
+    margin-bottom: 3em;
+}
+#home-sud-txt-cover{
+    /* border: 1px solid red; */
+    height: 16em;
+    padding: 4em;
+}
+#home-bottom-header{
+    margin-bottom: 1em;
+}
+#home-place-dropdown{
+    overflow-y: scroll;
+    height: 50vh;
+    top: 263px;
+}
