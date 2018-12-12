@@ -1,0 +1,16 @@
+.login-wrapper{
+
+    width: 50%;
+}
+.headNav{
+    
+    text-align: center;
+    color: brown;
+}
+.login-text{
+    text-align: center;
+    color: black;  
+}
+.login-form{
+    margin-bottom:1em;
+}
