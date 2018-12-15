@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Modals from '../../components/modal/modal';
-import Signup from '../../pages/signup/signup';
-import './navbar.css';
+import './loginNav.css';
 import {
     Collapse,
     Navbar,
@@ -16,7 +14,7 @@ import {
     DropdownItem } from 'reactstrap';
     import {Link} from 'react-router-dom'
 
-class NavBar extends Component{
+class loginNav extends Component{
   constructor(props) {
     super(props);
 
@@ -45,11 +43,8 @@ class NavBar extends Component{
             <Link to="/About" >About</Link>
               </NavItem>&nbsp;&nbsp;
               <NavItem>
-                <Signup Signup='Signup'/>
+              <Link to="/" >Logout</Link>
               </NavItem>&nbsp;&nbsp;
-              <NavItem>
-                <Modals text='Login'/>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Options
@@ -75,4 +70,4 @@ class NavBar extends Component{
     }
 }
 
-export default NavBar;
+export default loginNav;

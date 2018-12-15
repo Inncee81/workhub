@@ -1,0 +1,18 @@
+.nav-edit{
+    text-align: center !important;
+}
+
+.navbar-nav {
+
+    list-style: none;
+    align-items: baseline;
+ 
+}
+
+.navbar-nav a{
+    color:black !important;
+}
+a:hover{
+    text-decoration: none !important;
+}
+

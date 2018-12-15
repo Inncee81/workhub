@@ -7,6 +7,8 @@ import Explore from '../src/pages/explore/explore';
 import Signup from '../src/pages/signup/signup';
 import Login from '../src/pages/login/login';
 import JobDetails from '../src/pages/jobDetails/jobDetails';
+import VerifyPage from '../src/pages/verifyPage/verifyPage';
+import Dashboard from '../src/pages/dashboard/dashboard';
 
 const Router =()=>{
     return(
@@ -20,6 +22,9 @@ const Router =()=>{
                 <Route path='/Signup' component={Signup}/>
                 <Route path='/Login' component={Login}/>
                 <Route path='/JobDetails' component={JobDetails}/>
+                <Route path='/Verify' component={VerifyPage}/>
+                <Route path='/Dashboard' component={Dashboard}/>
+                
 
 
             </Switch>
