@@ -5,7 +5,7 @@ import {Container , Row, Col} from 'reactstrap';
 import {  Form, FormGroup, Label, Input } from 'reactstrap';
 import Axios from 'axios';
 
-class dashboard extends Component{
+class Dashboard extends Component{
     state ={
         userID:sessionStorage.getItem('user')
     }
@@ -32,4 +32,4 @@ render(){
 }
 }
 
-export  default dashboard;
+export  default Dashboard;

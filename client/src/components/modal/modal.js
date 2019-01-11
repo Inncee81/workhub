@@ -55,7 +55,11 @@ class Modals extends Component{
             
             
           })
-          sessionStorage.setItem('user', res.data.token._id)
+          const user = {
+            userToken: res.data.currentUser.userToken,
+            token: res.data.token
+          }
+          sessionStorage.setItem('user', JSON.stringify(user))
           this.props.history.push('/Dashboard');
           console.log(this.props)
 

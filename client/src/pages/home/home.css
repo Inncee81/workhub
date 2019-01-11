@@ -71,6 +71,7 @@ ul{
 }
 #home-latest-jobs-cards{
     margin-bottom: 3em;
+ 
 }
 #home-row-sub-div{
     margin-bottom: 3em;
@@ -90,4 +91,12 @@ ul{
     overflow-y: scroll;
     height: 50vh;
     top: 263px;
+}
+.search-divs{
+    background-color: rgb(247, 244, 244);
+    box-shadow: 4px 4px 4px grey;
+}
+.searchDrop-style{
+    margin-top: 12px;
+    margin-bottom: 12px;
 }

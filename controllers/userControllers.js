@@ -4,6 +4,8 @@ var job = require('../models/job');
 var subscribers = require('../models/subscribe');
 var bcrypt = require('bcrypt');
 var mailer = require('../functions/mailer');
+var jwt = require('jsonwebtoken');
+var secret = require('../functions/secret');
 
 exports.CreateUser = (req,res)=>{
     try{
@@ -29,7 +31,9 @@ exports.CreateUser = (req,res)=>{
                         verify:false,
                         statusCode:randx,
                         password:hash,
-                        profilePicture:''
+                        profilePicture:'',
+                        pictureID:''
+                        
                         
                         
                     }
@@ -111,7 +115,19 @@ exports.userlogin = (req, res)=>{
                     if(login[0].status == 'Employer'){
                         bcrypt.compare(req.body.password, login[0].password,function(err, set){
                             if(set){
-                                res.json({message:'You Are logged in as Employer' , token:{_id:login[0]._id, mail, status:login[0].status}  });
+                               var token = jwt.sign({email:login.email,_id:login._id},secret.key,{expiresIn:'2hrs'});
+                               let profile = {
+                                   firstname:login[0].firstname,
+                                   lastname:login[0].lastname,
+                                   email:login[0].email,
+                                   status:login[0].status,
+                                   verify:login[0].verify,
+                                   profilePicture:login[0].profilePicture,
+                                   pictureID:login[0].pictureID
+                               }
+                                // res.json({message:'You Are logged in as Employer' ,token:token,currentUser:profile, token2:{_id:login[0]._id, mail, status:login[0].status}  });
+                                res.json({message:'You Are logged in as Employer' ,token:token,currentUser:profile});
+
                                
                             }else{
                                 res.json({message:'email or password inserted is incorrect'});
@@ -120,7 +136,20 @@ exports.userlogin = (req, res)=>{
                     }else{
                         bcrypt.compare(req.body.password, login[0].password,function(err, sets){
                             if(sets){
-                                res.json({message:'You Are logged in as Job seeker', token:{_id:login[0]._id, mail, status:login[0].status}  })
+                                // res.json({message:'You Are logged in as Job seeker', token:{_id:login[0]._id, mail, status:login[0].status}  })
+                                var token = jwt.sign({email:login.email,_id:login._id},secret.key,{expiresIn:'2hrs'});
+                                let profile = {
+                                    
+                                    firstname:login[0].firstname,
+                                    lastname:login[0].lastname,
+                                    email:login[0].email,
+                                    status:login[0].status,
+                                    verify:login[0].verify,
+                                    profilePicture:login[0].profilePicture,
+                                    pictureID:login[0].pictureID,
+                                    userToken:login[0]._id
+                                }
+                                res.json({message:'You Are logged in as Job seeker', token:token,currentUser:profile})
                             }else{
                                 res.json({message:'email or password inserted is incorrect'});
                             }
@@ -156,7 +185,7 @@ try{
 
 exports.userApplyJob = (req,res)=>{
     try{
-        var userID = req.params.id
+        var userID = req.body.user
         var jobIDx = req.body.id
         model.findById({_id:userID}, function(err, ID){
             if(err){

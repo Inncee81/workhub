@@ -1,0 +1,8 @@
+.search_divx{
+    text-align: center;
+    background-color: rgb(247, 244, 244);
+    position: relative;
+    z-index: 3;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}

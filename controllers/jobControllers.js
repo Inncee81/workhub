@@ -28,7 +28,7 @@ var googleMapsClient = require("@google/maps").createClient({
 //           jobDescription: req.body.jobDescription,
 //           salaryRange: req.body.salaryRange,
 //           coordinates: response.json.results[0].geometry.location,
-      
+
 //         };
 //         console.log(detail);
 //         users.find({ email: req.body.email }, function(err, user) {
@@ -92,127 +92,182 @@ var googleMapsClient = require("@google/maps").createClient({
 // };
 //without the google cordinates
 exports.createJob = (req, res) => {
-      try {
-        var detail = {
-          username: req.body.username,
-          email: req.body.email,
-          companyName: req.body.companyName,
-          companyDetails: req.body.companyDetails,
-          jobTitle: req.body.jobTitle,
-          yearOfExperience: req.body.yearOfExperience,
-          address: req.body.jobLocation,
-          state:req.body.state,
-          academicQualification: req.body.academicQualification,
-          jobDescription: req.body.jobDescription,
-          salaryRange: req.body.salaryRange,
-          Time:Date.now()
-  
-      
-        };
-        console.log(detail);
-        users.find({ email: req.body.email }, function(err, user) {
-          //console.log(user);
-          if (user.length >= 1) {
-            userStatus = user[0].status;
-           // console.log(userStatus);
-            if (userStatus == "job seeker") {
-              res.json({ message: "Sorry You are not authorized to post jobs" });
-            } else {
-              model.find(
-                {
-                  $and: [
-                    { companyName: detail.companyName },
-                    { jobTitle: detail.jobTitle },
-                    { jobLocation: detail.jobDescription }
-                  ]
-                },
-                function(err, output) {
-                  if (output.length >= 1) {
+  try {
+    var detail = {
+      username: req.body.username,
+      email: req.body.email,
+      companyName: req.body.companyName,
+      companyDetails: req.body.companyDetails,
+      jobTitle: req.body.jobTitle,
+      yearOfExperience: req.body.yearOfExperience,
+      address: req.body.jobLocation,
+      state: req.body.state,
+      academicQualification: req.body.academicQualification,
+      jobDescription: req.body.jobDescription,
+      salaryRange: req.body.salaryRange,
+      Time: Date.now()
+    };
+    console.log(detail);
+    users.find({ email: req.body.email }, function(err, user) {
+      //console.log(user);
+      if (user.length >= 1) {
+        userStatus = user[0].status;
+        // console.log(userStatus);
+        if (userStatus == "job seeker") {
+          res.json({ message: "Sorry You are not authorized to post jobs" });
+        } else {
+          model.find(
+            {
+              $and: [
+                { companyName: detail.companyName },
+                { jobTitle: detail.jobTitle },
+                { jobLocation: detail.jobDescription }
+              ]
+            },
+            function(err, output) {
+              if (output.length >= 1) {
+                res.json({
+                  err: err,
+                  message: "error encountered during creation !!"
+                });
+              } else {
+                state.find({ state: detail.state }, function(err, found) {
+                  if (err) {
                     res.json({
                       err: err,
-                      message: "error encountered during creation !!"
+                      message: "Error found while checking state validity"
+                    });
+                  } else if (found.length == 0) {
+                    res.json({
+                      message: "Sorry the state you entered does not exist"
                     });
                   } else {
-                    state.find({state:detail.state},function(err, found){
-                      if(err){
-                        res.json({err:err, message:'Error found while checking state validity'})
-                      }else if(found.length == 0){
-                        res.json({message:'Sorry the state you entered does not exist'})
-                      }else{
-                        model.create(detail, function(err, created) {
-                          if (created) {
-                            res.json({
-                              message: "job created successfully !!!",
-                            });
-                          } else {
-                            res.json({ err: err, message: "Job was not created !!!" });
-                          }
+                    model.create(detail, function(err, created) {
+                      if (created) {
+                        res.json({
+                          message: "job created successfully !!!"
+                        });
+                      } else {
+                        res.json({
+                          err: err,
+                          message: "Job was not created !!!"
                         });
                       }
-
-                    })
+                    });
                   }
-                }
-              );
+                });
+              }
             }
-          } else {
-            res.json({
-              err: err,
-              message: "please provide the email you registered with !!!"
-            });
-          }
+          );
+        }
+      } else {
+        res.json({
+          err: err,
+          message: "please provide the email you registered with !!!"
         });
-      } catch (exception) {
-        console.log("error:" + exception);
       }
-  
+    });
+  } catch (exception) {
+    console.log("error:" + exception);
+  }
 };
 
-exports.deleteJob = (req, res)=>{
-  try{
-     var data = req.params.id
-      model.findByIdAndDelete({_id:data}, function(err, data){
-        if(data){
-          res.json({message:'Job was deleted successfully !!'})
-        }else{
-          res.json({err:err, message:'unable to deleted job'})
-        }
-      })
-  }catch(exception){
+exports.deleteJob = (req, res) => {
+  try {
+    var data = req.params.id;
+    model.findByIdAndDelete({ _id: data }, function(err, data) {
+      if (data) {
+        res.json({ message: "Job was deleted successfully !!" });
+      } else {
+        res.json({ err: err, message: "unable to deleted job" });
+      }
+    });
+  } catch (exception) {
     console.log("error:" + exception);
   }
-}
+};
 
-exports.SearchJobs = (req,res)=>{
+// exports.SearchJobs = (req,res)=>{
+//   try{
+//     //var course = req.body.course
+//     var  location = req.body.location
+//     model.find({$and:[{"jobLocation":{$regex: location, $options: 'i'}},{"academicQualification":{$regex: course, $options: 'i'}}]},function(err, output){
+//       if(output.length>=1){
+//         res.json({output})
+//       }else if(output.length == 0){
+//         res.json({message:'Related Job searched Not found !!!'})
+//       }else{
+//         res.json({err:err, message:'Error found while getting job !!!'})
+//       }
+//     })
+//   }catch(exception){
+//     console.log("error:" + exception);
+//   }
+// }
+
+exports.SearchJobs = (req, res) => {
+  try {
+    var course = req.body.course;
+    var location = req.body.location;
+    if((course && location) == ""){
+      res.json({message:"Please Complete all the inputs !!!"})
+    }else{
+
+      model.find(
+        {
+          $and: [
+            { state: { $regex: location || "", $options: "i" } },
+            { academicQualification: { $regex: course || "", $options: "i" } }
+          ]
+        },
+        function(err, output) {
+          if (err) {
+            res.json({ err: err, message: "sorry, could not find course" });
+          } else if (output.length == 0) {
+            res.json({ message: "Related Job searched Not found !!!" });
+          } else {
+            console.log(output);
+            res.json(output);
+          }
+        }
+      );
+    }
+    
+  } catch (exception) {
+    console.log("error:" + exception);
+  }
+};
+exports.viewAllJobs = (req, res) => {
+  try {
+    model.find({}, function(err, ouput) {
+      if (err) {
+        res.json({
+          err: err,
+          message: "Error occured while Fetching all Jobs"
+        });
+      } else if (ouput.length == 0) {
+        res.json({ message: "Sorry no Jobs available At this moment !!!" });
+      } else {
+        res.json({ message: ouput });
+      }
+    });
+  } catch (exception) {
+    console.log("error:" + exception);
+  }
+};
+
+exports.viewJobDetail = (req,res)=>{
   try{
-    var course = req.body.course
-    var  location = req.body.location
-    model.find({$and:[{"jobLocation":{$regex: location, $options: 'i'}},{"academicQualification":{$regex: course, $options: 'i'}}]},function(err, output){
-      if(output.length>=1){
-        res.json({output})
-      }else if(output.length == 0){
-        res.json({message:'Related Job searched Not found !!!'})
+    var jobId = req.params.id
+    model.find({_id:jobId}, function(err,jobs){
+      if(err != null){
+        res.json({err:err, message:'Job not Found '})
       }else{
-        res.json({err:err, message:'Error found while getting job !!!'})
+        res.json({message:jobs});
+        
       }
     })
   }catch(exception){
     console.log("error:" + exception);
-  }
-}
-
-exports.viewAllJobs = (req,res)=>{
-  try{
-    model.find({},function(err,ouput){
-        if(err){
-            res.json({err:err, message:'Error occured while Fetching all Jobs'})
-        }else if(ouput.length == 0){
-            res.json({message:'Sorry no Jobs available At this moment !!!'})
-        }else{
-            res.json({message:ouput});
-        }
-    })
-  }catch(exception){
-    console.log("error:" + exception);   
   }
 }

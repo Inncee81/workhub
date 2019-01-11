@@ -6,6 +6,7 @@ router.post('/create', jobControllers.createJob);
 router.get('/delete/:id', jobControllers.deleteJob);
 router.post('/search',jobControllers.SearchJobs);
 router.get('/',jobControllers.viewAllJobs);
+router.get('/searchView/:id',jobControllers.viewJobDetail);
 
 
 

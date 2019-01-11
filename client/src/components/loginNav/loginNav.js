@@ -27,6 +27,10 @@ class loginNav extends Component{
     this.setState({
       isOpen: !this.state.isOpen
     });
+  };
+
+  Logout () {
+    sessionStorage.removeItem('user')
   }
     render(){
         return(
@@ -42,7 +46,7 @@ class loginNav extends Component{
               <NavItem >
             <Link to="/About" >About</Link>
               </NavItem>&nbsp;&nbsp;
-              <NavItem>
+              <NavItem onClick={() => this.Logout()}>
               <Link to="/" >Logout</Link>
               </NavItem>&nbsp;&nbsp;
               <UncontrolledDropdown nav inNavbar>

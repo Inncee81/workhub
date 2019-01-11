@@ -9,6 +9,7 @@ import Login from '../src/pages/login/login';
 import JobDetails from '../src/pages/jobDetails/jobDetails';
 import VerifyPage from '../src/pages/verifyPage/verifyPage';
 import Dashboard from '../src/pages/dashboard/dashboard';
+import UserAuth from './components/userAuth/userAuth';
 
 const Router =()=>{
     return(
@@ -17,13 +18,13 @@ const Router =()=>{
             <Switch>
                 <Route path='/' component={Home} exact/>
                 <Route path='/About' component={About}/>
-                <Route path='/Profile' component={Profile}/>
-                <Route path='/Explore' component={Explore}/>
+                <UserAuth path='/Profile' component={Profile}/>
+                <UserAuth path='/Explore/:id' component={Explore}/>
                 <Route path='/Signup' component={Signup}/>
                 <Route path='/Login' component={Login}/>
                 <Route path='/JobDetails' component={JobDetails}/>
                 <Route path='/Verify' component={VerifyPage}/>
-                <Route path='/Dashboard' component={Dashboard}/>
+                <UserAuth path='/Dashboard' component={Dashboard}/>
                 
 
 

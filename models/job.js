@@ -21,7 +21,7 @@ var mongoose = require('mongoose');
     yearOfExperience:{type:String, require:true},
     jobLocation:{type:String, require:true},
     state:{type:String, require:true},
-    academicQualification:{type:String, require:true},
+    academicQualification:String, 
     jobDescription:{type:String, require:true},
     salaryRange:String,
     Time:Date
