@@ -27,7 +27,8 @@ exports.uploadProfilePicture = function(req,res){
                     console.log(profile);
                     console.log(result._id);
                     var profileId = result._id;
-                    users.findOneAndUpdate({email:req.body.email},{profilePicture:profileId}, function(err, result){
+                    var profileUrl = result.url;
+                    users.findOneAndUpdate({email:req.body.email},{profilePicture:profile.image,pictureID:profile.imageID}, function(err, result){
                         if(result){
                             res.json({message:' image Uploaded successfully !!'}) ;
                         }else{

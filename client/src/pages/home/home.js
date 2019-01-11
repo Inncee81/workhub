@@ -18,8 +18,11 @@ import "./home.css";
 import { Container, Row, Col } from "reactstrap";
 import NavBar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/footer";
+import SearchDropDown from "../../components/searchDropDown/searchDropDown";
 import Axios from "axios";
 import SubscribeModal from "../../components/subscribeModal/subscribeModal";
+import {Link} from "react-router-dom"
+import { error } from "util";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -31,13 +34,20 @@ class Home extends Component {
       dropdownOpen: false,
       jobs: [],
       state: [],
-      users:[]
+      users:[],
+      course:'',
+      location:'',
+      place: '',
+      search:[],
+      searchError:''
+
       //   splitButtonOpen: false
     };
   }
   componentDidMount() {
     this.getJob();
     this.getState();
+    
   }
 
   getJob = () => {
@@ -57,6 +67,36 @@ class Home extends Component {
         });
       });
   }
+  handleChange = (event)=>{
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  };
+
+  handleSubmit = (e)=>{
+    e.preventDefault()
+    let {course} = this.state
+    let Search = {course,location: this.state.place};
+    console.log("search", Search);
+
+    Axios.post("http://localhost:5000/jobs/search",Search)
+  .then(res=> {
+   console.log(res);
+    this.setState({
+      search:res.data
+    })
+   // console.log('i don reach',this.state.search)
+  })
+  }
+
+  
+
+transfer = (val) => {
+  this.setState({
+    place: val
+  })
+}
+
 
   toggleDropDown() {
     this.setState({
@@ -72,10 +112,10 @@ class Home extends Component {
 
   render() {
     let { jobs } = this.state;
-    console.log(this.state.jobs)
+    //console.log(this.state.jobs)
     const { state } = this.state;
 
-    console.log(state);
+    //console.log(state);
     return (
       <Container fluid={true}>
         <NavBar />
@@ -92,15 +132,19 @@ class Home extends Component {
             <Row id="home-mid-row">
               <Col md="2" />
               <Col md="4">
-                <InputGroup>
+              <form onSubmit={this.handleSubmit}>
+              <InputGroup>
                   {/* <InputGroupAddon addonType="prepend">@</InputGroupAddon> */}
-                  <Input placeholder="search for jobs" />
+                  <Input type='text' className='jobSearch' id='course' placeholder="search for Course Title" onChange={this.handleChange}/>
                 </InputGroup>
+              </form>
               </Col>
-              <Col md="4">
-                <InputGroup>
-                  <Input />
+            <Col md="4">
+              <form onSubmit={this.handleSubmit}>
+              <InputGroup>
+                  <Input type='text' className='location' id='location' value={this.state.place} placeholder='Insert Location' onChange={this.handleChange} />
                   <InputGroupButtonDropdown
+                  
                     addonType="append"
                     isOpen={this.state.dropdownOpen}
                     toggle={this.toggleDropDown}
@@ -108,13 +152,13 @@ class Home extends Component {
                     <DropdownToggle caret color="success">
                       Places
                     </DropdownToggle>
-                    <DropdownMenu id="home-place-dropdown">
+                    <DropdownMenu id="home-place-dropdown" >
                       {/*  */}
                       {state &&
                         state.map((sta, i) => {
                             console.log(sta.state)
                           return (
-                            <DropdownItem key={i}>{sta.state}</DropdownItem>
+                            <DropdownItem onClick={() => this.transfer(sta.state)} key={i}>{sta.state}</DropdownItem>
                           );
                         })}
                     </DropdownMenu>
@@ -123,9 +167,22 @@ class Home extends Component {
                     Go
                   </Button>
                 </InputGroup>
-              </Col>
+              </form>
+            </Col>
               <Col md="2" />
             </Row>
+            <Row>
+            <Col md="2"></Col>
+            <Col md="4">
+            <div className='search-divs'>
+            <SearchDropDown searchError={this.state.searchError} SearchProp={this.state.search} className='searchDrop-style' />
+
+            </div>
+            </Col>
+            <Col md="4"></Col>
+            <Col md="2"></Col>
+            </Row>
+            
           </Col>
         </Row>
         <Container>
@@ -142,7 +199,7 @@ class Home extends Component {
                     <Card body>
                       <CardTitle>{job.jobTitle}</CardTitle>
                       <CardText>{job.state}</CardText>
-                      <Button color="success">Apply Now</Button>
+                     <Link to={`/Explore/${job._id}`}><Button color="success">Apply Now</Button></Link> 
                     </Card>
                   </Col>
                 );

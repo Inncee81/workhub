@@ -13,7 +13,10 @@ var userSchema = mongoose.Schema({
   verify: { type: Boolean },
   statusCode: { type: Number },
   password: { type: String, required: true },
-  profilePicture:String
+  profilePicture:String,
+  pictureID:String
+  
+
   
 });
 
