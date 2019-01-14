@@ -50,17 +50,32 @@ class Login extends Component{
             
             
           })
-          const user = {
-            userToken: res.data.currentUser.userToken,
-            token: res.data.token
-          }
-          sessionStorage.setItem('user', JSON.stringify(user))
-          this.props.history.push('/Dashboard');
-          console.log(this.props)
+          if(sessionStorage.getItem('user')){
+            alert('you have an active log in As a job Seeker')
+            this.props.history.push('/Dashboard');
 
+          }else{
+            const user = {
+              userToken: res.data.currentUser.userToken,
+              token: res.data.token
+            }
+            sessionStorage.setItem('user', JSON.stringify(user))
+            this.props.history.push('/Dashboard');
+            console.log(this.props)
+          }
         }else if(res.data.message == 'You Are logged in as Employer'){
-          
-          this.props.history.push('/JobDetails');
+          if(sessionStorage.getItem('user')){
+            alert('you have an active log in As An Employer')
+            this.props.history.push('/Admin');
+
+          }else{
+            const users = {
+              userToken: res.data.currentUser.userToken,
+              token: res.data.token
+            }
+            sessionStorage.setItem('user', JSON.stringify(users))
+            this.props.history.push('/Admin');
+          }
         }else{
           this.setState({
             error:'Please check your inputs correctly '
@@ -73,7 +88,8 @@ class Login extends Component{
     render(){
         let {message,error} = this.state;
         return(
-            <Container className='login-container'>
+          <body className='login-body'>
+          <Container className='login-container'>
                 <Row classname='login-wrapper'>
                     <Col md='3'></Col>
                     <Col md='6'><Row>
@@ -84,16 +100,16 @@ class Login extends Component{
                         <Col md='4'></Col>
                         </Row>
                         <div className='login-div'>
-                            <h3>Login</h3>
+                            <h3 className='loginText'><strong>Login</strong></h3>
                         <Form  onSubmit={this.handleSubmit}>
                         <div className='message-div'>{message}</div>
                       <div className='message-div'>{error}</div>
         <FormGroup>
-          <Label for="exampleEmail">Email</Label>
+          <Label for="labels" className='labels'>Email</Label>
           <Input type="email" name="email" id="email" placeholder="Insert Email"  value={this.state.email} onChange={this.handleChange} />
         </FormGroup>
         <FormGroup>
-          <Label for="examplePassword">Password</Label>
+          <Label for="examplePassword" className='labels'>Password</Label>
           <Input type="password" name="password" id="password" placeholder="Insert password "  value={this.state.password} onChange={this.handleChange}/>
         </FormGroup>
     
@@ -111,6 +127,8 @@ class Login extends Component{
                     <Col md='3'></Col>
                 </Row>
             </Container>
+          </body>
+            
         )
     }
 }

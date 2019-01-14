@@ -1,0 +1,24 @@
+.header_dash1{
+    background-image: url('../../images/giphy.gif');
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    color: white;
+}
+.dash-write{
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom:1em;
+    font-size: 34px;
+    text-shadow: 3px 3px 3px black;
+
+}
+.SubTitile{
+    text-shadow: 3px 3px 3px black;
+    color: brown;
+ 
+}
+.foot{
+    position: fixed;
+    bottom: 0;
+}

@@ -8,6 +8,7 @@ router.post('/login', userController.userlogin);
 router.post('/apply',userController.userApplyJob);
 router.get('/relatedJobs/:id', userController.UserViewJobByQualification);
 router.get('/:id',userController.getUser);
+router.get('/',userController.getAllUsers);
 
 
 module.exports = router;

@@ -10,6 +10,7 @@ import JobDetails from '../src/pages/jobDetails/jobDetails';
 import VerifyPage from '../src/pages/verifyPage/verifyPage';
 import Dashboard from '../src/pages/dashboard/dashboard';
 import UserAuth from './components/userAuth/userAuth';
+import Admin from '../src/pages/Admin/Admin';
 
 const Router =()=>{
     return(
@@ -23,6 +24,7 @@ const Router =()=>{
                 <Route path='/Signup' component={Signup}/>
                 <Route path='/Login' component={Login}/>
                 <Route path='/JobDetails' component={JobDetails}/>
+                <UserAuth path='/Admin' component={Admin}/>
                 <Route path='/Verify' component={VerifyPage}/>
                 <UserAuth path='/Dashboard' component={Dashboard}/>
                 

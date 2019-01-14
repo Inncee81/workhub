@@ -33,9 +33,6 @@ exports.CreateUser = (req,res)=>{
                         password:hash,
                         profilePicture:'',
                         pictureID:''
-                        
-                        
-                        
                     }
                     var subject = 'Hello ' + details.firstname + ',';
                     var mailBody = `We're really excited for you to join our online Job community. 
@@ -110,7 +107,7 @@ exports.userlogin = (req, res)=>{
         var mail = {email:req.body.email};
         var password ={password:req.body.password};
         model.find(mail, (err, login)=>{
-            if(login.length >=1){
+            if(login){
                 if(login[0].verify == true){
                     if(login[0].status == 'Employer'){
                         bcrypt.compare(req.body.password, login[0].password,function(err, set){
@@ -123,7 +120,9 @@ exports.userlogin = (req, res)=>{
                                    status:login[0].status,
                                    verify:login[0].verify,
                                    profilePicture:login[0].profilePicture,
-                                   pictureID:login[0].pictureID
+                                   pictureID:login[0].pictureID,
+                                   userToken:login[0]._id
+
                                }
                                 // res.json({message:'You Are logged in as Employer' ,token:token,currentUser:profile, token2:{_id:login[0]._id, mail, status:login[0].status}  });
                                 res.json({message:'You Are logged in as Employer' ,token:token,currentUser:profile});
@@ -182,7 +181,19 @@ try{
     console.log('error:'+ exception);
 }
 }
-
+exports.getAllUsers = (req,res)=>{
+    try{
+        model.find({},function(err, output){
+            if(output.length >= 1){
+                res.json({output});
+            }else{
+                res.json({err:err, message:'Sorry no User found !!'})
+            }
+        })
+    }catch(exception){
+        console.log('error:'+ exception);
+    }
+}
 exports.userApplyJob = (req,res)=>{
     try{
         var userID = req.body.user
@@ -272,7 +283,7 @@ exports.UserViewJobByQualification = (req,res)=>{
         cv.find({userID:userID},function(err,user){
             if(err){
                 res.json({err:err, message:'Error occured While Fetching user !!!'})
-            }else if(user){
+            }else if(user.length>=1){
                 const userCourse = user[0].academicQualification
                 const useryrExp = user[0].yearOfExperience
                 job.find({$and:[{academicQualification:userCourse},{yearOfExperience:useryrExp}]},function(err, output){

@@ -15,4 +15,7 @@
 a:hover{
     text-decoration: none !important;
 }
-
+.profilediv{
+    height: 20px;
+    width: 20px;
+}

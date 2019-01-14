@@ -55,17 +55,32 @@ class Modals extends Component{
             
             
           })
-          const user = {
-            userToken: res.data.currentUser.userToken,
-            token: res.data.token
-          }
-          sessionStorage.setItem('user', JSON.stringify(user))
-          this.props.history.push('/Dashboard');
-          console.log(this.props)
+          if(sessionStorage.getItem('user')){
+            alert('you have an active log in As a job Seeker')
+            this.props.history.push('/Dashboard');
 
+          }else{
+            const user = {
+              userToken: res.data.currentUser.userToken,
+              token: res.data.token
+            }
+            sessionStorage.setItem('user', JSON.stringify(user))
+            this.props.history.push('/Dashboard');
+            console.log(this.props)
+          }
         }else if(res.data.message == 'You Are logged in as Employer'){
-          
-          this.props.history.push('/JobDetails');
+          if(sessionStorage.getItem('user')){
+            alert('you have an active  log in As An Employer')
+            this.props.history.push('/Admin');
+
+          }else{
+            const users = {
+              userToken: res.data.currentUser.userToken,
+              token: res.data.token
+            }
+            sessionStorage.setItem('user', JSON.stringify(users))
+            this.props.history.push('/Admin');
+          }
         }else{
           this.setState({
             error:'Please check your inputs correctly '

@@ -21,7 +21,9 @@ import Footer from "../../components/footer/footer";
 import SearchDropDown from "../../components/searchDropDown/searchDropDown";
 import Axios from "axios";
 import SubscribeModal from "../../components/subscribeModal/subscribeModal";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import Loader from "../../components/loader/loader";
+
 import { error } from "util";
 class Home extends Component {
   constructor(props) {
@@ -205,7 +207,8 @@ transfer = (val) => {
                 );
               })
             ) : (
-              <div>loading...</div>
+
+              <Loader/>
             )}
           </Row>
           {/* <Row id='home-bottom-div'> */}

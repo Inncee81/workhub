@@ -13,27 +13,47 @@ import {
     DropdownMenu,
     DropdownItem } from 'reactstrap';
     import {Link} from 'react-router-dom'
-
+    import Axios from 'axios'
 class loginNav extends Component{
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      userID:JSON.parse(sessionStorage.getItem('user')).userToken,
+      users:[]
     };
+    
   }
+ 
+
+  componentDidMount(){
+    this.getUser();
+  }
+ getUser = ()=>{
+  let  {userID} =  this.state 
+  Axios.get(`http://localhost:5000/users/${userID}`)
+  .then(res =>{
+   console.log(res.data.message.profilePicture)
+   this.setState({
+    users:res.data.message
+   })
+  })
+ }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   };
-
+  
   Logout () {
     sessionStorage.removeItem('user')
   }
     render(){
+      let {users} = this.state;
         return(
+          
             <div>
             <Navbar color="light" light expand="md">
           <NavbarBrand href="/"><strong>Workhub.com</strong></NavbarBrand>
@@ -49,13 +69,15 @@ class loginNav extends Component{
               <NavItem onClick={() => this.Logout()}>
               <Link to="/" >Logout</Link>
               </NavItem>&nbsp;&nbsp;
+              <NavItem  key={users}>
+                    <img className='profiledi' src={users.profilePicture} alt='' height='30' width='30'/>
+                    </NavItem>
               <UncontrolledDropdown nav inNavbar>
+              
                 <DropdownToggle nav caret>
-                  Options
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
                   </DropdownItem>
                   <DropdownItem>
                     Option 2
